@@ -7,6 +7,4 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Laravel 8 Authentication
-
-Simple Authentication For Laravel 8 Without Composer, NPM and Many More ...
+Cashier App Using Laravel 8
