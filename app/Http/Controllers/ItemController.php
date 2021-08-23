@@ -16,6 +16,13 @@ class ItemController extends Controller
     {
         //
     }
+    public function get(Request $request)
+    {
+        return Item::query()->when($request->search,function ($query) use($request)
+        {
+            $query->where('name','like',"%$request->search%");
+        })->get();
+    }
 
     /**
      * Show the form for creating a new resource.

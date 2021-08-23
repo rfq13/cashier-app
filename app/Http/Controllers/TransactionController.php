@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -14,12 +16,16 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transaction = Transaction::where('user_id',Auth::id())->with('item')->paginate(15);
+        return response()->json([
+            'message'=>'success',
+            'transactions'=>$transaction
+        ]);
     }
 
     public function get()
     {
-        $transaction = Transaction::with('item')->paginate(15);
+        $transaction = Transaction::where('user_id',Auth::id())->with('item')->paginate(15);
         return response()->json([
             'message'=>'success',
             'transactions'=>$transaction
@@ -44,7 +50,18 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('hai');
+        $request->validate([
+            'qty'=>'required',
+            'item'=>'required',
+        ]);
+
+        $item = new Item;
+        $item->user_id = Auth::id();
+        $item->qty = $request->qty;
+        $item->item_id = $request->item;
+        $item->save();
+        return 'oke';
     }
 
     /**
